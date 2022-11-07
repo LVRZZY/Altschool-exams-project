@@ -115,20 +115,20 @@
         regexp: '^bind-address'
         line: 'bind-address = 0.0.0.0'
         backup: yes
-#        role:
-#          - Restart mysql
+        role:
+          - Restart mysql
 
-#    - name: Copy Script to remote
-#      ansible.builtin.copy:
-#        src: /home/admin/exams/pgsql.sh
-#        dest: /home/ubuntu/pgsql.sh
-#        owner: ubuntu
-#        group: ubuntu
-#        mode: '0777'
+    - name: Copy Script to remote
+      ansible.builtin.copy:
+        src: /home/admin/exams/pgsql.sh
+        dest: /home/ubuntu/pgsql.sh
+        owner: ubuntu
+        group: ubuntu
+        mode: '0777'
 
-#    - name: Execute pgsql script
-#      command: sh /home/admin/exams/pgsql.sh
-#      ignore_errors: true
+    - name: Execute pgsql script
+      command: sh /home/admin/exams/pgsql.sh
+      ignore_errors: true
 
     - name: Obtain latest code from Github
       git: >
@@ -137,9 +137,9 @@
         force=yes
         accept_hostkey=yes
 
-#    - name: copy lavarel repo
-#      shell: sudo mv -f /opt/exams /var/www/html/
-#      ignore_errors: true
+    - name: copy lavarel repo
+      shell: sudo mv -f /opt/exams /var/www/html/
+      ignore_errors: true
 
     - name: Permission for composer Installation
       shell: sudo chmod -R 777 /var/www/html/exams/
@@ -178,27 +178,27 @@
     - name: clear cache
       shell: php /var/www/html/exams/artisan config:clear
 
-#    - name: run migration artisan migrate
-#      shell: php /var/www/html/exams/artisan migrate
-#      ignore_errors:  true
+    - name: run migration artisan migrate
+      shell: php /var/www/html/exams/artisan migrate
+      ignore_errors:  true
 
-#    - name: run migration fresh
-#      shell: php /var/www/html/exams/artisan migrate:fresh
-#      ignore_errors: true
+    - name: run migration fresh
+      shell: php /var/www/html/exams/artisan migrate:fresh
+      ignore_errors: true
 
-#   - name: run migration seed
-#      shell: php /var/www/html/exams/artisan migrate --seed
-#      ignore_errors: true
+   - name: run migration seed
+      shell: php /var/www/html/exams/artisan migrate --seed
+      ignore_errors: true
 
-#    - name: run migration refresh
-#      shell: php /var/www/html/exams/artisan migrate:refresh --seed
-#      ignore_errors: true
+    - name: run migration refresh
+      shell: php /var/www/html/exams/artisan migrate:refresh --seed
+      ignore_errors: true
 
-#    - name: Remove default apache page
-#      file: name=/etc/apache2/sites-enabled/000-default.conf state=absent
+    - name: Remove default apache page
+      file: name=/etc/apache2/sites-enabled/000-default.conf state=absent
 
-#    - name: create apache vhosts for domain
-#      template: src=web.conf.j2 dest="/etc/apache2/sites-available/exams.conf"
+    - name: create apache vhosts for domain
+      template: src=web.conf.j2 dest="/etc/apache2/sites-available/exams.conf"
 
     - name: permission for laravel conf file
       shell: sudo chmod -R 777 /etc/apache2/sites-available/exams.conf
